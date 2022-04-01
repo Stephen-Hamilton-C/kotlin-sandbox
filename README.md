@@ -20,6 +20,12 @@
       - [first()](#first)
       - [last()](#last)
       - [sum()](#sum)
+  - [Maps](#maps)
+    - [Interesting Map methods](#interesting-map-methods)
+      - [keys](#keys)
+      - [values](#values)
+      - [put](#put)
+      - [remove](#remove)
 
 # Basic Miscellaneous
 
@@ -103,7 +109,13 @@ An immutable list contains items that must never be altered.
 
 `listOf(...objects)` creates an immutable list, while `mutableListof(...objects)` creates a mutable list.
 
-To create an empty mutable list, you need a type, like this: `mutableListOf<String>()`
+To create an empty mutable list, you need to explicitly type it or trigger type inferrence:
+```kt
+// All of these variables contain empty sets of strings.
+var emptyList = mutableListOf<String>();
+var otherEmptyList: List<String> = mutableListOf();
+var anotherEmptyList: List<String> = mutableListOf<String>();
+```
 
 ### Interesting List methods
 
@@ -128,7 +140,7 @@ Just like lists, there's mutable and immutable sets.
 
 `setOf(...objects)` creates an immutable set, while `mutableSetOf(...objects)` creates a mutable set.
 
-Just like Lists, to create an empty mutable set, you need a type: `mutableSetOf<String>()`
+Just like Lists, to create an empty mutable set, you need to either explicitly type it or trigger type inferrence. See [Lists](#lists) for an example.
 
 Sets are unordered but they still have an index. (This is really annoying, just give them the heccin square brackets! Yes I understand Sets are unordered but you're still giving them an index. Just make them normal!!)
 
@@ -155,4 +167,22 @@ Gets the last element of a set. Equilavent to `mySet.elementAt(mySet.size - 1)`
 #### sum()
 Gets the sum of all the elements in a set. (Shocking, I know)
 
+## Maps
 
+Create immutable maps like this: `mapOf(key to value)`. Mutable maps are, of course: `mutableMapOf(key to value)`. Typing it is as expected: `myMap: Map<String, String> = mutableMapOf()`. Of course, creating empty maps is just like any other collection. See [Lists](#lists) for an example.
+
+Retrieving or modifying a value is normal: `myMap[key]`
+
+### Interesting Map methods
+
+#### keys
+Returns a Set of all keys in the Map.
+
+#### values
+Returns a List of all keys in the Map.
+
+#### put
+Sets a key to a value: `myMap.put(5, "Five")`
+
+#### remove
+Deletes a key from a map
