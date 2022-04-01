@@ -12,6 +12,14 @@
   - [Numbers](#numbers)
 - [Collections](#collections)
   - [Lists](#lists)
+    - [Interesting List methods](#interesting-list-methods)
+      - [random()](#random)
+  - [Sets](#sets)
+    - [Interesting Set methods](#interesting-set-methods)
+      - [addAll()](#addall)
+      - [first()](#first)
+      - [last()](#last)
+      - [sum()](#sum)
 
 # Basic Miscellaneous
 
@@ -95,6 +103,11 @@ An immutable list contains items that must never be altered.
 
 `listOf(...objects)` creates an immutable list, while `mutableListof(...objects)` creates a mutable list.
 
+To create an empty mutable list, you need a type, like this: `mutableListOf<String>()`
+
+### Interesting List methods
+
+#### random()
 *dude, this is so nice, look at this:*  
 You can get a random item from a list using `list.random()` instead of the old clunky way:
 ```java
@@ -108,3 +121,38 @@ val fruits: List<String> = listOf("Apple", "Orange", "Banana");
 println("Random fruit: ${fruits.random()}");
 ```
 I'm telling you, Kotlin is literally better Java.
+
+## Sets
+
+Just like lists, there's mutable and immutable sets.
+
+`setOf(...objects)` creates an immutable set, while `mutableSetOf(...objects)` creates a mutable set.
+
+Just like Lists, to create an empty mutable set, you need a type: `mutableSetOf<String>()`
+
+Sets are unordered but they still have an index. (This is really annoying, just give them the heccin square brackets! Yes I understand Sets are unordered but you're still giving them an index. Just make them normal!!)
+
+To access an element at an index, use `mySet.elementAt(0)`. This is the same for any unordered collection. This throws an error if there is no element there, because null safety. If you want to have null, use `mySet.elementAtOrNull(9001)` and it'll return null if the element is not there.
+
+### Interesting Set methods
+
+#### addAll()
+You can add an entire collection to a Set using `Set.addAll()`. For example:
+```kt
+var waitingIDs: Set<String> = mutableSetOf<String>();
+val queuedIDs: List<Int> = listOf(51, 23, 69, 420, 23, 420);
+
+waitingIDs.addAll(queuedIDs);
+println(waitingIDs); // 51, 23, 69, 420
+```
+
+#### first()
+Gets the first element of a set. Equivalent to `mySet.elementAt(0)`.
+
+#### last()
+Gets the last element of a set. Equilavent to `mySet.elementAt(mySet.size - 1)`
+
+#### sum()
+Gets the sum of all the elements in a set. (Shocking, I know)
+
+
