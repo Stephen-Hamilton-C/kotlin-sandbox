@@ -105,6 +105,6 @@ System.out.println("Random fruit: " + fruits.get(rand.nextInt(fruits.size())));
 Here's the neat Kotlin way of getting a random item from a list:
 ```kt
 val fruits: List<String> = listOf("Apple", "Orange", "Banana");
-println("Random fruit: ${fruits.random()});
+println("Random fruit: ${fruits.random()}");
 ```
 I'm telling you, Kotlin is literally better Java.
