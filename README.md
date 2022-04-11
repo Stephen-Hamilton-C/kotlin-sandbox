@@ -26,6 +26,21 @@
       - [values](#values)
       - [put](#put)
       - [remove](#remove)
+- [Iterators](#iterators)
+  - [Range of numbers](#range-of-numbers)
+    - [downTo](#downto)
+    - [until](#until)
+    - [step](#step)
+    - [Char](#char)
+  - [Lists & Sets](#lists--sets)
+    - [Simple Loop](#simple-loop)
+    - [Indices](#indices)
+    - [Destructured](#destructured)
+  - [Maps](#maps-1)
+    - [Simple Loop](#simple-loop-1)
+    - [Destructured](#destructured-1)
+    - [Key/Value](#keyvalue)
+- [Labeled Jump Expressions](#labeled-jump-expressions)
 
 # Basic Miscellaneous
 
@@ -186,3 +201,172 @@ Sets a key to a value: `myMap.put(5, "Five")`
 
 #### remove
 Deletes a key from a map
+
+# Iterators
+
+## Range of numbers
+
+Iterating through a range of numbers is made much easier to read than most languages, even Python, in my opinion. All you need to do to iterate through a range is use `num1..num2`, like so:
+```kt
+for (i in 1..3) {
+  println("i = $i");
+}
+
+/* 
+Output:
+  i = 1
+  i = 2
+  i = 3
+*/
+```
+
+The range operator can even take expressions and variables instead of literals.
+
+### downTo
+
+If you want to go backwards through a range of numbers, instead of `..`, you use `downTo`. For example:
+```kt
+for (i in 3 downTo 1) {
+  println("i = $i");
+}
+/*
+Output:
+  i = 3
+  i = 2
+  i = 1
+*/
+```
+
+### until
+
+If you want to go through a range and exclude the last number, use `until` instead of `..`. This could be useful if you need more raw control over iterating through collections.
+```kt
+for (i in 1 until 3) {
+  println("i = $i");
+}
+/*
+Output:
+  i = 1
+  i = 2
+*/
+```
+
+### step
+
+If you want an increment different than 1, you can change it with `step` like so:
+```kt
+for (i in 0..4 step 2) {
+  println("i = $i");
+}
+/*
+Output:
+  i = 2
+  i = 4
+*/
+```
+**Step cannot be negative.**
+
+### Char
+
+Chars are conveniently just numbers when you get down to the metal, and letters are organized in alphabetical order. So it's possible to iterate through a range of chars like so:
+```kt
+for (i in 'A'..'C') {
+  println(i);
+}
+/*
+Output:
+  A
+  B
+  C
+*/
+```
+
+## Lists & Sets
+
+### Simple Loop
+Generally it's pretty simple, just like Java:
+```kt
+val fruits = listOf("Apple", "Orange", "Banana");
+
+for (fruit in fruits) {
+  println(fruits);
+}
+
+/*
+Output:
+  Apple
+  Orange
+  Banana
+*/
+```
+
+### Indices
+You can also iterate through indices:
+```kt
+for (i in fruits.indices) {
+  println("i = $i");
+}
+```
+
+### Destructured
+Or you can get both at the same time:
+```kt
+for ((i, fruit) in fruits.withIndex()) {
+  println("$i: $fruit");
+}
+```
+Brings me back to my Lua days, honestly one of the few things I miss about Lua was how easy it was to iterate through tables. I still sing `for i,v in pairs(collection) do` to myself every once in a while.
+
+## Maps
+
+### Simple Loop
+You can use the classic key-value pair object:
+```kt
+val numbers: Map<Int, String> = mapOf(1 to "One", 2 to "Two", 3 to "Three");
+
+for (entry in numbers) {
+  println("${entry.key} -> ${entry.value}");
+}
+```
+
+### Destructured
+Or you can destructure the map, which I find cleaner:
+```kt
+for ((key, value) in numbers) {
+  println("$key -> $value");
+}
+```
+
+### Key/Value
+Of course, you can iterate through just keys and values like so:
+```kt
+for (integer in numbers.keys) {
+  println(integer);
+}
+
+for (writtenNum in numbers.values) {
+  println(writtenNum);
+}
+```
+
+# Labeled Jump Expressions
+
+This one is wild and didn't really fit into any other section. This could actually be an incredibly useful feature. If you have several nested loops and you want to break out of one of the parent loops, you don't have to keep track of a boolean. Simply label the loop with a name and use that label after your break statement:
+```kt
+myRootLoop@ for (i in 1..3) {
+  println("i: $i");
+  for (j in 1..3) {
+    if(j == 2){
+      break@myRootLoop
+    }
+    println("j: $j");
+  }
+}
+/*
+Output:
+  i: 1
+  j: 1
+*/
+```
+
+You can do the same thing with continue statements.
