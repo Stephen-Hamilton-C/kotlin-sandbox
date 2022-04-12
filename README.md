@@ -9,6 +9,7 @@
   - [Logical Operators](#logical-operators)
 - [Types](#types)
   - [String Templates](#string-templates)
+    - [String Comparison](#string-comparison)
   - [Numbers](#numbers)
 - [Collections](#collections)
   - [Lists](#lists)
@@ -41,6 +42,12 @@
     - [Destructured](#destructured-1)
     - [Key/Value](#keyvalue)
 - [Labeled Jump Expressions](#labeled-jump-expressions)
+- [Functions](#functions)
+  - [Declaration](#declaration)
+  - [Arguments](#arguments)
+  - [Single Expression Functions](#single-expression-functions)
+  - [Anonymous Functions](#anonymous-functions)
+  - [Lambda Expressions](#lambda-expressions)
 
 # Basic Miscellaneous
 
@@ -98,6 +105,16 @@ println("I got $fruits.size fruits")
 
 // This is correct:
 println("I got ${fruits.size} fruits") // I got 3 fruits
+```
+
+### String Comparison
+
+Oh, also, something really important, `String.equals()` is no more! Instead we can just compare strings just like in any other language:
+```kt
+val welcomeMsg: String = "Hello!";
+if(welcomeMsg == "Hello!"){
+  println("Oh, hi!");
+}
 ```
 
 ## Numbers
@@ -370,3 +387,47 @@ Output:
 ```
 
 You can do the same thing with continue statements.
+
+# Functions
+
+## Declaration
+Functions are declared with `fun` instead of just a type a name:
+```kt
+fun foo(): Unit {
+  println("bar");
+}
+```
+As you can see, `Unit` takes place of `void`... Weird name, but ok.
+
+You cannot use type inferrence in functions. The only inferrence they will do is to `Unit`. So if you return anything without explicitly defining the return type, errors will be thrown. With this revelation, I think I'll personally skip out on using `Unit` to show that my functions don't return anything, because `Unit` looks weird and doesn't make sense to me.
+
+## Arguments
+Arguments, unlike variables, cannot be type inferred, so they must have an explicit type annotation. Even if they are optional arguments.
+
+## Single Expression Functions
+If your function returns anything, is wicked simple, and can be written in one line, you can forgo the braces like so:
+```kt
+fun add(a: Int, b: Int): Int = a + b;
+
+println(add(2, 3)); // 5
+```
+Type inferrence other than `Unit` can be made with these types of functions.
+
+## Anonymous Functions
+So, anonymous functions exist:
+```kt
+val foo = fun() {
+  println("bar");
+}
+foo(); // bar
+```
+Type inferrence only goes to `Unit`, just like regular functions.
+
+## Lambda Expressions
+```kt
+val subtract = { a: Int, b: Int -> a / b };
+println(subtract(10, 7)); // 3
+```
+Type inferrence exists in lambdas, which is good because you can't explicitly annotate a type in lambda expressions.
+
+
