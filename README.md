@@ -48,6 +48,10 @@
   - [Single Expression Functions](#single-expression-functions)
   - [Anonymous Functions](#anonymous-functions)
   - [Lambda Expressions](#lambda-expressions)
+- [Classes](#classes)
+  - [Primary Constructors](#primary-constructors)
+  - [Secondary Constructors](#secondary-constructors)
+  - [Initializers](#initializers)
 
 # Basic Miscellaneous
 
@@ -430,4 +434,50 @@ println(subtract(10, 7)); // 3
 ```
 Type inferrence exists in lambdas, which is good because you can't explicitly annotate a type in lambda expressions.
 
+# Classes
 
+## Primary Constructors
+
+It's easy to create simple constructors. If all your constructor needs to do is initialize variables, you can just do this:
+```kt
+class Pet(val name: String, val age: Int);
+val myPet = Pet('Spot', 3);
+println(myPet.name); // Spot
+```
+
+## Secondary Constructors
+
+You can make other constructors as well, but they must defer to another constructor:
+```kt
+class Person(val pets: MutableList<Pet> = mutableListOf());
+
+class Pet(val name: String) {
+  constructor(name: String, owner: Person) : this(name) {
+    owner.pets.add(this);
+  }
+}
+
+val me = Person();
+val stray = Pet("Dumpster");
+val foundKitten = Pet("Jack", me);
+for(pet: Pet in me.pets){
+  println(pet.name); // Jack
+}
+```
+
+## Initializers
+
+If you need some work to be done for your default constructor, you can use an init block:
+```kt
+class Human(val firstName: String, val lastName: String) {
+  val fullName: String;
+  init {
+    fullName = "${firstName} ${lastName}";
+  }
+}
+val japple = Human("John", "Appleseed");
+println(japple.fullName); // John Appleseed
+```
+This could've actually been done when initializing the `fullName` variable, but this is just an example.
+
+You can also have multiple init blocks and they will be called in order.
