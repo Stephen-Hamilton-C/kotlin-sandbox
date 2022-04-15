@@ -7,6 +7,9 @@
   - [val vs var](#val-vs-var)
   - [Input](#input)
   - [Logical Operators](#logical-operators)
+  - [Getters and Setters](#getters-and-setters)
+    - [Private](#private)
+    - [The Field Identifier](#the-field-identifier)
 - [Types](#types)
   - [String Templates](#string-templates)
     - [String Comparison](#string-comparison)
@@ -84,6 +87,45 @@ The order of evaluation:
 2. NOT
 3. AND
 4. OR
+
+## Getters and Setters
+
+Gone are the days of making a variable and then making `getVar()` and `setVar(value)` methods alongside them. Instead, similarly to C#, you can create getters and setters for properties:
+```kt
+public var myName: String
+  get() = _myName;
+  set(value) {
+    _myName = value;
+    println("myName was changed to $_myName");
+  }
+```
+
+### Private
+
+Getters and Setters do not need explicit type annotations as they are inferred from the variable type or what they return or set. You can set getters or setters as `private`:
+```kt
+public var size: Int
+  private set
+```
+So anyone outside the class can get the `size`, but only code inside the class can set the `size` variable.
+
+### The Field Identifier
+
+In setters, you can set the value of the property by using the `field` identifier. That way you don't need an extra variable to keep track of what it's set to and you can't internally go around the setter:
+```kt
+public var positiveInt: Int = 0
+  set(value) {
+    if (value >= 0){
+      field = value
+    }
+  }
+
+positiveInt = 3;
+println(positiveInt); // 3
+positiveInt = -1;
+println(positiveInt); // 3
+```
+Note that if there is a getter, the `field` identifier will not work.
 
 # Types
 Java has primitives `int`, `double`, `boolean`, etc.. It also has their class equivalents: `Int`, `Double`, `Boolean`, etc..
